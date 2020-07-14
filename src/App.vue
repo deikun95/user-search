@@ -2,42 +2,35 @@
   <div id="app">
     <el-card class="box-card">
       <div slot="header" class="input">
-        <input class="search" type="text" placeholder="Please enter login..." />
+        <Search />
       </div>
       <div class="user">
-        <ul class="list">
-          <li class="item">
-            <div class="img"></div>
-            <div class="name">
-              <span class="username">Deikun95</span>
-            </div>
-          </li>
-          <li class="item">
-            <div class="img"></div>
-            <div class="name">
-              <span class="username">Deikun95</span>
-            </div>
-          </li>
-          <li class="item">
-            <div class="img"></div>
-            <div class="name">
-              <span class="username">Deikun95</span>
-            </div>
-          </li>
-          <li class="item">
-            <div class="img"></div>
-            <div class="name">
-              <span class="username">Deikun95</span>
-            </div>
-          </li>
-        </ul>
+        <Users />
       </div>
-      <div class="pages">
-        <el-pagination layout="prev, pager, next" :total="70"></el-pagination>
-      </div>
+      <transition name="slide-fade">
+        <div v-if="getUsers.length" class="pages">
+          <el-pagination layout="prev, pager, next" :total="70"></el-pagination>
+        </div>
+      </transition>
     </el-card>
   </div>
 </template>
+
+<script>
+import Search from "./components/Search";
+import Users from "./components/Users";
+import { mapGetters } from "vuex";
+export default {
+  name: "app",
+  components: {
+    Users,
+    Search
+  },
+  computed: {
+    ...mapGetters(["getUsers"])
+  }
+};
+</script>
 
 <style lang="scss">
 * {
@@ -68,53 +61,30 @@ li {
 
 .box-card {
   width: 480px;
+  height: 597px;
   margin-top: 50px;
 }
-.search {
-  width: 400px;
-  height: 50px;
-  font-size: 30px;
-  outline: none;
-  border: 1px solid rgb(179, 179, 179);
-}
+
 .user {
   display: flex;
   justify-content: center;
   overflow-y: auto;
   height: 426px;
+  transform: height 1s;
 }
-.item {
-  display: flex;
-  // justify-content: space-between;
-  align-items: center;
-  width: 400px;
-  height: 80px;
-  border: 2px solid rgb(235, 235, 235);
-  margin-bottom: 30px;
-  border-radius: 50px;
-  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-.img {
-  // display: flex;
-  // justify-content: flex-start;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  background-image: url(./assets/user-photo.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-.name {
-  margin: auto;
-}
-.username {
-  font-size: 20px;
-}
-.pages{
+
+.pages {
   margin-top: 20px;
+}
+.slide-fade-enter-active {
+  transition: all .2s ease;
+}
+.slide-fade-leave-active {
+  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active до версии 2.1.8 */ {
+  transform: translateY(20px);
+  opacity: 0;
 }
 </style>
