@@ -6,29 +6,67 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    search: "",
     users: [],
+    totalCount: "",
+    pageNumber: 1,
   },
   getters: {
+    getTotalCount: (state) => {
+      return state.totalCount;
+    },
     getUsers: (state) => {
       return state.users;
     },
+    getUser: (state) => {
+      return state.user;
+    },
+    getPageNumber: (state) => {
+      return state.pageNumber;
+    },
+    getSearch: (state) => {
+      return state.search;
+    },
   },
   mutations: {
-    setUsers(state, payload) {
-      state.users = payload;
+    setSearch(state, payload) {
+      state.search = payload;
+    },
+    setUsersInfo(state, payload) {
+      state.totalCount = payload.total_count;
+      state.users = payload.items;
+    },
+    setUser(state, payload) {
+      state.user = payload;
+    },
+    setPageNumber(state, payload) {
+      state.pageNumber = payload;
     },
   },
   actions: {
-    getUsersRequest: ({ commit }, payload) => {
-      if (payload !== "") {
+    setInfo: ({ commit }, payload) => {
+      commit("setInfo", payload);
+    },
+    setSearch: ({ commit }, payload) => {
+      commit("setSearch", payload.query);
+    },
+    getPageValue: ({ commit, dispatch }, payload) => {
+      commit("setPageNumber", payload.number);
+      dispatch("getUsersRequest", payload);
+    },
+    getUsersRequest: ({ commit, state }, payload) => {
+      if (payload.name !== "") {
+        let baseUrl = "https://api.github.com/search/";
         axios
-          .get(`https://api.github.com/search/users?q=${payload}`)
+          .get(
+            `${baseUrl}users?q=${payload.name}&sort=repositories&order=desc&page=${state.pageNumber}`
+          )
           .then((res) => {
-            commit("setUsers", res.data.items);
+            commit("setUsersInfo", res.data);
           })
           .catch((e) => {});
       } else {
-        commit("setUsers", payload);
+        commit("setUsersInfo", "олег");
       }
     },
   },

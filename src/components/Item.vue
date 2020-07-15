@@ -1,19 +1,39 @@
 <template>
-  <li class="item">
-    <img :src="user.avatar_url" alt="" class="img">
-    <div class="name">
-      <span class="username">{{user.login}}</span>
-    </div>
-  </li>
+  <div class="wrapper">
+    <li class="item" @click="dialogHandler">
+      <img :src="user.avatar_url" alt class="img" />
+      <div class="name">
+        <span class="username">{{user.login}}</span>
+      </div>
+    </li>
+    <UserDialog :open="open" @close="handleDialogClose" :user="user" />
+  </div>
 </template>
 
 <script>
+import UserDialog from "./UserDialog";
 export default {
   name: "Item",
+  components: {
+    UserDialog
+  },
+  data() {
+    return {
+      open: false
+    };
+  },
   props: {
     user: {
       type: Object,
       default: () => ({})
+    }
+  },
+  methods: {
+    dialogHandler: function() {
+      this.open = true;
+    },
+    handleDialogClose() {
+      this.open = false;
     }
   }
 };
@@ -35,9 +55,6 @@ export default {
   &:hover {
     background-color: rgba(235, 235, 235, 0.4);
   }
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 .img {
   display: flex;
@@ -56,5 +73,4 @@ export default {
 .username {
   font-size: 20px;
 }
-
 </style>

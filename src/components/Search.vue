@@ -7,8 +7,8 @@
       type="text"
       placeholder="Please enter login..."
     />
-    <el-select v-model="value" placeholder="Select">
-      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+    <el-select @change="sortHandler" v-model="value" placeholder="Select">
+      <el-option  v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
     </el-select>
   </div>
 </template>
@@ -22,23 +22,27 @@ export default {
       query: "",
       options: [
         {
-          value: "По убыванию",
-          label: "По убыванию"
+          value: "down",
+          label: "Descending"
         },
         {
-          value: "По возрастанию",
-          label: "По возрастанию"
+          value: "up",
+          label: "Ascending"
         }
       ],
-      value: "По убыванию"
+      value: "Sort by"
     };
   },
   name: "Search",
   methods: {
-    ...mapActions(["getUsersRequest"]),
+    ...mapActions(["getUsersRequest", "setSearch", "setInfo"]),
     debouncedSearch: debounce(function() {
-      this.getUsersRequest(this.query);
-    }, 200)
+      this.getUsersRequest({ name: this.query });
+      this.setSearch({ query: this.query });
+    }, 200),
+    sortHandler() {
+      // this.setInfo(this.value);
+    }
   }
 };
 </script>npm i axios -S

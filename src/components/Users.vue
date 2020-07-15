@@ -2,7 +2,7 @@
   <ul class="list">
       <Item v-for="user in getUsers" :key="user.id" :user="user" />
       <transition name="fade">
-    <h2 class="empty-title" v-if="!getUsers.length">List is empty now or login is not found</h2>
+    <h2 class="empty-title" v-if="getUsers === undefined || !getUsers.length">List is empty now or login is not found</h2>
      </transition>
   </ul>
 </template>

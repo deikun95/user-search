@@ -8,8 +8,14 @@
         <Users />
       </div>
       <transition name="slide-fade">
-        <div v-if="getUsers.length" class="pages">
-          <el-pagination layout="prev, pager, next" :total="70"></el-pagination>
+        <div v-if="getUsers !== undefined" class="pages">
+          <el-pagination
+            @current-change="pageHandler"
+            :current-page="getPageNumber"
+            :pager-count="7"
+            layout="prev, pager, next"
+            :total="getTotalCount/3"
+          ></el-pagination>
         </div>
       </transition>
     </el-card>
@@ -19,7 +25,7 @@
 <script>
 import Search from "./components/Search";
 import Users from "./components/Users";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "app",
   components: {
@@ -27,7 +33,13 @@ export default {
     Search
   },
   computed: {
-    ...mapGetters(["getUsers"])
+    ...mapGetters(["getUsers", "getTotalCount", "getPageNumber", "getSearch"])
+  },
+  methods: {
+    ...mapActions(["getPageValue"]),
+    pageHandler(pageNumber) {
+      this.getPageValue({ number: pageNumber, name: this.getSearch });
+    }
   }
 };
 </script>
@@ -77,10 +89,10 @@ li {
   margin-top: 20px;
 }
 .slide-fade-enter-active {
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 .slide-fade-leave-active {
-  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active до версии 2.1.8 */ {
