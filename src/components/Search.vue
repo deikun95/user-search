@@ -8,7 +8,7 @@
       placeholder="Please enter login..."
     />
     <el-select @change="sortHandler" v-model="value" placeholder="Select">
-      <el-option  v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
     </el-select>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
       this.setSearch({ query: this.query });
     }, 200),
     sortHandler() {
-      // this.setInfo(this.value);
+      this.setInfo({ value: this.value, name: this.query });
     }
   }
 };

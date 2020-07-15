@@ -10,6 +10,8 @@ export default new Vuex.Store({
     users: [],
     totalCount: "",
     pageNumber: 1,
+    selectParam: "down",
+    sortParam: "desc",
   },
   getters: {
     getTotalCount: (state) => {
@@ -17,9 +19,6 @@ export default new Vuex.Store({
     },
     getUsers: (state) => {
       return state.users;
-    },
-    getUser: (state) => {
-      return state.user;
     },
     getPageNumber: (state) => {
       return state.pageNumber;
@@ -29,6 +28,15 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    setInfo(state, payload) {
+      state.selectParam = payload.value;
+      if (state.selectParam === "down") {
+        state.sortParam = "desc";
+      }
+      if (state.selectParam === "up") {
+        state.sortParam = "asc";
+      }
+    },
     setSearch(state, payload) {
       state.search = payload;
     },
@@ -44,8 +52,9 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    setInfo: ({ commit }, payload) => {
+    setInfo: ({ commit, dispatch }, payload) => {
       commit("setInfo", payload);
+      dispatch("getUsersRequest", payload);
     },
     setSearch: ({ commit }, payload) => {
       commit("setSearch", payload.query);
@@ -59,7 +68,7 @@ export default new Vuex.Store({
         let baseUrl = "https://api.github.com/search/";
         axios
           .get(
-            `${baseUrl}users?q=${payload.name}&sort=repositories&order=desc&page=${state.pageNumber}`
+            `${baseUrl}users?q=${payload.name}&sort=repositories&order=${state.sortParam}&page=${state.pageNumber}`
           )
           .then((res) => {
             commit("setUsersInfo", res.data);
