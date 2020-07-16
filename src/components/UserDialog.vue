@@ -1,13 +1,16 @@
 <template>
   <div class="dialog-card">
-    <el-dialog :destroy-on-close="true" :title="user.login" :visible="open" :show-close="false">
+    <el-dialog :title="user.login" :visible="open" :show-close="false">
       <span class="close-button" @click="handleClose">x</span>
       <el-table :data="gridData">
         <el-table-column label="Profile">
-          <a :href="`https://github.com/${user.login}`" target="_blank" >Profile link</a>
+          <a :href="`https://github.com/${user.login}`" target="_blank">Profile link</a>
         </el-table-column>
         <el-table-column label="Repositories">
-          <a :href="`https://github.com/${user.login}?tab=repositories`" target="_blank">Repositories link</a>
+          <a
+            :href="`https://github.com/${user.login}?tab=repositories`"
+            target="_blank"
+          >Repositories link</a>
         </el-table-column>
         <el-table-column label="Gists">
           <a :href="`https://gist.github.com/${user.login}`" target="_blank">Gists link</a>
@@ -33,13 +36,10 @@ export default {
       // loading: true,
       gridData: [
         {
-          profile: "No.1518,  Jinshajiang Road, Putuo District"
+          profile: "profile"
         }
       ]
     };
-  },
-  computed: {
-    ...mapGetters(["getUser"])
   },
   methods: {
     ...mapActions(["getUserRequest"]),
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="scss">
-a{
+a {
   text-decoration: none;
 }
 .dialog-card {

@@ -75,7 +75,7 @@ export default new Vuex.Store({
           })
           .catch((e) => {});
       } else {
-        commit("setUsersInfo", "олег");
+        commit("setUsersInfo", "foo");
       }
     },
   },

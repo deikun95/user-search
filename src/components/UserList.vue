@@ -1,6 +1,6 @@
 <template>
   <ul class="list">
-      <Item v-for="user in getUsers" :key="user.id" :user="user" />
+      <UserItem v-for="user in getUsers" :key="user.id" :user="user" />
       <transition name="fade">
     <h2 class="empty-title" v-if="getUsers === undefined || !getUsers.length">List is empty now or login is not found</h2>
      </transition>
@@ -9,11 +9,11 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Item from "./Item";
+import UserItem from "./UserItem";
 export default {
   name: "Users",
   components: {
-    Item
+    UserItem
   },
   computed: {
     ...mapGetters(["getUsers"])

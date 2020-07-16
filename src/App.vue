@@ -2,10 +2,10 @@
   <div id="app">
     <el-card class="box-card">
       <div slot="header" class="input">
-        <Search />
+        <UserSearch />
       </div>
       <div class="user">
-        <Users />
+        <UserList />
       </div>
       <transition name="slide-fade">
         <div v-if="getUsers !== undefined" class="pages">
@@ -23,14 +23,14 @@
 </template>
 
 <script>
-import Search from "./components/Search";
-import Users from "./components/Users";
+import UserSearch from "./components/UserSearch";
+import UserList from "./components/UserList";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "app",
   components: {
-    Users,
-    Search
+    UserList,
+    UserSearch
   },
   computed: {
     ...mapGetters(["getUsers", "getTotalCount", "getPageNumber", "getSearch"])
@@ -57,6 +57,8 @@ export default {
   color: #2c3e50;
   display: flex;
   justify-content: center;
+  background-color: rgba(194, 220, 228, 0.849);
+  height: 100vh;
 }
 li {
   list-style-type: none;

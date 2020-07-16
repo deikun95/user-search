@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserItem renders the component 1`] = `
+<div class="wrapper">
+  <li class="item"><img alt="" class="img">
+    <div class="name"><span class="username"></span></div>
+  </li>
+  <userdialog-stub user="[object Object]"></userdialog-stub>
+</div>
+`;

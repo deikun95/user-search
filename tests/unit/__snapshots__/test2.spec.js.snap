@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserSearch renders the component 1`] = `
+<div class="wrapper"><input type="text" placeholder="Please enter login..." class="search">
+  <el-select placeholder="Select">
+    <el-option label="Descending" value="down"></el-option>
+    <el-option label="Ascending" value="up"></el-option>
+  </el-select>
+</div>
+`;

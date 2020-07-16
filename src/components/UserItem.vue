@@ -13,7 +13,7 @@
 <script>
 import UserDialog from "./UserDialog";
 export default {
-  name: "Item",
+  name: "UserItem",
   components: {
     UserDialog
   },

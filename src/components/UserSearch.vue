@@ -45,7 +45,7 @@ export default {
     }
   }
 };
-</script>npm i axios -S
+</script>
 
 <style lang="scss">
 .search {
