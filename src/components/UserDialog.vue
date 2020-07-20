@@ -33,7 +33,6 @@ export default {
   },
   data() {
     return {
-      // loading: true,
       gridData: [
         {
           profile: "profile"
