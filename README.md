@@ -1,5 +1,7 @@
 # user-search
 
+Github user search application based on Vue.js
+
 ## Project setup
 ```
 npm install
