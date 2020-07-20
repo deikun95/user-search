@@ -57,7 +57,6 @@ export default {
 }
 .img {
   display: flex;
-  // justify-content: flex-start;
   border-radius: 50%;
   width: 80px;
   height: 80px;
