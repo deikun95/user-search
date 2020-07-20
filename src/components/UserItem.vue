@@ -42,7 +42,6 @@ export default {
 <style lang="scss">
 .item {
   display: flex;
-  // justify-content: space-between;
   align-items: center;
   width: 400px;
   height: 80px;
